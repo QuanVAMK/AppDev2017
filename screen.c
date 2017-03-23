@@ -25,7 +25,7 @@ void gotoXY(int row, int col) {
 void displayBar(int col, double rms) {
 	int i;
 	gotoXY(2,1);
-	for (i=1;i<=80;i++) 
+	for (i=0;i<=80;i++)
 		printf("*");
 	for (i=80;i>=80-rms/50; i--) {
 		gotoXY(i, col);
