@@ -1,12 +1,12 @@
-#This is readme file
+#README file
 
-#WRITTEN BY NGUYEN HONG MINH QUAN
+# WRITTEN BY NGUYEN HONG MINH QUAN
 
-##This application is written for Linux OS. 
+## This application is written for Linux OS. 
 
-##https://github.com/QuanVAMK/AppDev2017
+## https://github.com/QuanVAMK/AppDev2017
 
-Raspberry Pi acoustic sensor project
+### Raspberry Pi acoustic sensor project
 
 This project will turn a raspberry Pi 3 into an acoustic sensor.
 
@@ -25,36 +25,35 @@ It is recommended to have Ethernet connection for your Pi.
 The USB sound card has to be set as default audio device. To do so, you need
 to modify two files with following contents:
 
-`Use **“sudo nano /etc/asound.conf”** command and put following content to the file:
-pcm.!default {
-  type plug
-  slave {
-    pcm "hw:1,0"
-  }
-}
-ctl.!default {
-    type hw
-    card 1
-}
+Use **“sudo nano /etc/asound.conf”** command and put following content to the file:
+`pcm.!default {
+`  type plug
+`  slave {
+`    pcm "hw:1,0"
+`  }
+`}
+`ctl.!default {
+`    type hw
+`    card 1
+`}
 Go to your home directory. Use **“nano .asoundrc”** command and put the same content to the file.
 Run **“alsamixer”** you should be able to see that USB sound card is the default audio device.
-`
 
 If you are using Raspbian Jessie, you have to roll back alsa-utils to an
 early version.
-`a. Use **“sudo nano /etc/apt/sources.list”** command and add the last line:
-deb http://mirrordirector.raspbian.org/raspbian/ jessie main contrib non-free rpi
-# Uncomment line below then 'apt-get update' to enable 'apt-get source'
-#deb-src http://archive.raspbian.org/raspbian/ jessie main contrib non-free rpi
-deb http://mirrordirector.raspbian.org/raspbian/ wheezy main contrib non-free rpi
+a. Use **“sudo nano /etc/apt/sources.list”** command and add the last line:
+`deb http://mirrordirector.raspbian.org/raspbian/ jessie main contrib non-free rpi
+`# Uncomment line below then 'apt-get update' to enable 'apt-get source'
+`#deb-src http://archive.raspbian.org/raspbian/ jessie main contrib non-free rpi
+`deb http://mirrordirector.raspbian.org/raspbian/ wheezy main contrib non-free rpi
 
 b. Run **“sudo apt-get update”**
 
 c. Run **“sudo aptitude versions alsa-utils”** to check if version 1.0.25 of alsa-util is available:
 pi@raspberrypi:~ $ sudo aptitude versions alsa-utils
 Package alsa-utils:
-i   1.0.25-4                                                     oldstable                                 500
-p   1.0.28-1                                                     stable                                    500
+`i   1.0.25-4                                                     oldstable                                 500
+`p   1.0.28-1                                                     stable                                    500
 
 d. Run **“sudo apt-get install alsa-utils=1.0.25-4”** to downgrade.
 
@@ -63,7 +62,7 @@ e. Reboot (if necessary)
 f. Run **“arecord -r44100 -c1 -f S16_LE -d5 test.wav”** to test that your microphone is working. You should see a “test.wav” file in the current folder.
 
 g. Put earphone on. Run **“aplay test.wav”** to check that your recording is okay.
-`
+
 
 2. Installation configuration
 
