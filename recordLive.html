@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Live recording</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<style>
+	.button { 
+		float:left;
+		color: #333;
+		width: auto;
+		text-align: center;
+		padding: 0 10px;
+		background: #90EE90;
+		line-height: 1.5em;
+		height: auto;
+	}
+	.button.active {
+		background: #ea0000;
+		color: #fff;	
+	}
+</style>
+<script>
+	
+	$(document).ready(function(){
+		var interval;
+		var inputID = document.getElementById("toogle");
+		$('#toogle').click(function(){	//Check if the button with id "toogle" is clicked.
+			if(!interval){
+				//If interval variable not defined then we add properties to the input, change it's text and create the chart.
+				$(".button").addClass('active');
+				inputID.value = "Stop visualizing";
+				interval = setInterval(function() {createGraph()}, 1500);
+				} 
+			else {
+				//If the button is pressed again, we change it back to the original state, clear interval variable and stop updating the chart.
+				$(".button").removeClass('active');
+				inputID.value = "Start visualizing";
+				clearInterval(interval);
+				interval = null;
+			}
+			
+		});
+	});
+	
+	function createGraph() {
+		$.get("sound.php", function(dataStr){	//jquery function to get the updated line from the file.
+			//We handle the data by spliting it into an array, change them from string to numerical values and also trim all unnecessary special characters.
+			data = dataStr.split(", ");
+			data[1] = data[1].replace(/\r?\n|\r/g, "")
+			data[1] = data[1].split(";");
+			for (var i = 0;i<8;i++) {
+				data[1][i]= Number(data[1][i]);
+			}
+			//dataPoints includes array of datas to be pushed into the chart.
+			var dps = [
+			{label: 1, y: data[1][0]},
+			{label: 2, y: data[1][1]},
+			{label: 3, y: data[1][2]},
+			{label: 4, y: data[1][3]},
+			{label: 5, y: data[1][4]},
+			{label: 6, y: data[1][5]},
+			{label: 7, y: data[1][6]},
+			{label: 8, y: data[1][7]}
+			];
+			
+			var chart = new CanvasJS.Chart("chartcontainer");
+			//Some customization for the chart.
+			chart.options.animationEnabled = "true";
+			chart.options.animationDuration = 700;
+			chart.options.theme = "theme2";
+			chart.options.title = {text: "Sound Detector", fontSize: 30, fontColor: "green"};
+			chart.options.axisX = {title: data[0]};	//This will showcase the time at which the graph is updated.
+			chart.options.axisY = {title: "RMS values", interlacedColor: "#F0F8FF"};
+			
+			function calculateMax() {
+				var max = 0;
+				for (var i=0;i<8;i++) {
+					if (max<data[1][i]) 
+						max = data[1][i];
+				}
+				return max;
+			}
+			function calculateMin() {
+				var min = 3000;
+				for (i=0;i<8;i++) {
+					if (min>data[1][i]) 
+						min = data[1][i];
+				}
+				return min;
+			}
+			//Display the maximum and minimum values of the chart.
+			chart.options.subtitles = [{text:"Maximum value: "	+ calculateMax(), fontColor:"red", fontSize: 20},
+			{text:"Minimum value: "	+ calculateMin(), fontColor:"blue", fontSize: 20}];
+			
+			//dataSeries is the father of dataPoints which define the type of chart and some customizations to show additional information about a dataPoint.
+			var series = { type: "column", indexLabel:"{y}", indexLabelPlacement: "outside"};
+			chart.options.data = [];
+			chart.options.data.push(series);
+			series.dataPoints = dps;
+			
+			//After the set up we have to call this built-in function for the chart to be created.
+			chart.render();
+		});
+	}
+</script>
+</head>
+<body>
+	<div id ="chartcontainer" style ="height:700px; width:100%;"></div>
+	<input type = "button" class="button " id = "toogle" value = "Start visualizing"></input>
+	<br><br>
+	<input type ="button" onclick ="location.href = 'recordedSound.php';" value ="Recorded data here" ></input>
+</body>
+</html>
