@@ -1,4 +1,4 @@
-#README file
+# README file
 
 # WRITTEN BY NGUYEN HONG MINH QUAN
 
@@ -26,25 +26,41 @@ The USB sound card has to be set as default audio device. To do so, you need
 to modify two files with following contents:
 
 Use **“sudo nano /etc/asound.conf”** command and put following content to the file:
+
 `pcm.!default {
+
 `  type plug
+
 `  slave {
+
 `    pcm "hw:1,0"
+
 `  }
+
 `}
+
 `ctl.!default {
+
 `    type hw
+
 `    card 1
+
 `}
+
 Go to your home directory. Use **“nano .asoundrc”** command and put the same content to the file.
 Run **“alsamixer”** you should be able to see that USB sound card is the default audio device.
 
 If you are using Raspbian Jessie, you have to roll back alsa-utils to an
 early version.
+
 a. Use **“sudo nano /etc/apt/sources.list”** command and add the last line:
+
 `deb http://mirrordirector.raspbian.org/raspbian/ jessie main contrib non-free rpi
+
 `# Uncomment line below then 'apt-get update' to enable 'apt-get source'
+
 `#deb-src http://archive.raspbian.org/raspbian/ jessie main contrib non-free rpi
+
 `deb http://mirrordirector.raspbian.org/raspbian/ wheezy main contrib non-free rpi
 
 b. Run **“sudo apt-get update”**
