@@ -23,17 +23,21 @@
 <script>
 	
 	$(document).ready(function(){
+		//The interval variable will be used to hold the ID value which acts as the parameters for clearInterval() function.
 		var interval;
+		//This will get the input element in order to change it's text.
 		var inputID = document.getElementById("toogle");
-		$('#toogle').click(function(){	//Check if the button with id "toogle" is clicked.
+		$('#toogle').click(function(){	//Check if the input element with id "toogle" is clicked.
 			if(!interval){
-				//If interval variable not defined then we add properties to the input, change it's text and create the chart.
+				//If interval variable not defined then we add properties to the input, 
+				//change it's text, create and update the chart.
 				$(".button").addClass('active');
 				inputID.value = "Stop visualizing";
 				interval = setInterval(function() {createGraph()}, 1500);
 				} 
 			else {
-				//If the button is pressed again, we change it back to the original state, clear interval variable and stop updating the chart.
+				//If the button is pressed again, we change it back to the original state,
+				//clear interval variable and stop updating the chart.
 				$(".button").removeClass('active');
 				inputID.value = "Start visualizing";
 				clearInterval(interval);
@@ -44,15 +48,17 @@
 	});
 	
 	function createGraph() {
-		$.get("sound.php", function(dataStr){	//jquery function to get the updated line from the file.
-			//We handle the data by spliting it into an array, change them from string to numerical values and also trim all unnecessary special characters.
+		$.get("sound.php", function(dataStr){	//jquery function to get the value echoed from the php file.
+			//We handle the data by spliting it into an array, 
+			//change the data from string to numerical values 
+			//and also trim all unnecessary special characters (newline characters, etc).
 			data = dataStr.split(", ");
 			data[1] = data[1].replace(/\r?\n|\r/g, "")
 			data[1] = data[1].split(";");
 			for (var i = 0;i<8;i++) {
 				data[1][i]= Number(data[1][i]);
 			}
-			//dataPoints includes array of datas to be pushed into the chart.
+			//dataPoints includes array of data to be pushed into the chart.
 			var dps = [
 			{label: 1, y: data[1][0]},
 			{label: 2, y: data[1][1]},
@@ -65,7 +71,7 @@
 			];
 			
 			var chart = new CanvasJS.Chart("chartcontainer");
-			//Some customization for the chart.
+			//Some customizations for the chart.
 			chart.options.animationEnabled = "true";
 			chart.options.animationDuration = 700;
 			chart.options.theme = "theme2";
@@ -93,8 +99,11 @@
 			chart.options.subtitles = [{text:"Maximum value: "	+ calculateMax(), fontColor:"red", fontSize: 20},
 			{text:"Minimum value: "	+ calculateMin(), fontColor:"blue", fontSize: 20}];
 			
-			//dataSeries is the father of dataPoints which define the type of chart and some customizations to show additional information about a dataPoint.
+			//dataSeries is the father of dataPoints which define the type of chart 
+			//and also some customizations to show additional information about a dataPoint.
 			var series = { type: "column", indexLabel:"{y}", indexLabelPlacement: "outside"};
+			
+			//Now we just have to push all of them into the chart.
 			chart.options.data = [];
 			chart.options.data.push(series);
 			series.dataPoints = dps;
