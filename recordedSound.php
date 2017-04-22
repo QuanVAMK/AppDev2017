@@ -45,7 +45,7 @@
 		window.onload = function() {
 			var dataPoints = [];
 			var chart = new CanvasJS.Chart("chartcontainer");
-			//Customize the chart by enabling the animations, change the themes, etc.
+			//Customize the chart by enabling the animations, changing the themes, etc.
 			chart.options.animationEnabled = "true";
 			chart.options.animationDuration = 1000;
 			chart.options.theme = "theme2";
@@ -55,17 +55,17 @@
 			chart.options.toolTip = {content: "{label} <br/> RMS values: <br/> minimum: {y[0]} , maximum: {y[1]}"};
 			chart.options.axisX = {title: "Last modified: " + dataArr[dataArr.length-1][0], labelWrap:true};	//This will showcase the last time the chart is updated.
 			
-			//Push all the dataPoints into the chart.
+			//Push all the dataPoints (array includes the data) into the chart.
 			for (var i = 0;i<dataArr.length;i++) {
 				dataPoints.push({y: [calculateMin(i), calculateMax(i) ], label: dataArr[i][0]});
 			}
-			//Define dataSeries which is the type of chart, and push the dataPoints in. 
+			//dataSeries is the father of dataPoints, define the type and addtional information about the dataPoints.
 			var series = { type: "rangeSplineArea"};
 			chart.options.data = [];
 			chart.options.data.push(series);
 			series.dataPoints = dataPoints;
 			
-			//We have to call this built-in function to render the chart.
+			//After the set up we have to call this bulilt-in function to create the chart.
 			chart.render();
 		}
 
