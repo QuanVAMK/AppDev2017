@@ -1,11 +1,15 @@
-//Header file for screen manipulations
-#define UNICODE
+// includes the function prototypes for screen manipulation
 
-#define BAR "\u2590"
-enum COLORS{BLACK=30, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE};
-// Function prototypes
-void clearScreen(void);
+enum COLOR{BLACK=30, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE};
+
+#define UNICODE
+#define BAR "\u2590"		//define unicode for a bar
+
+//function prototypes
+
 void setFGcolor(int fg);
-void resetColors(void);
+void resetColor();
 void gotoXY(int row, int col);
-void displayBar(int col, double rms);
+void clearScreen();
+void displayBar(double rms, int i);
+

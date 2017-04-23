@@ -4,4 +4,4 @@
 
 #define URL "http://www.cc.puv.fi/~e1601120/PHP/sound_1.php"
 
-void send_data_curl(double []);
+void send_data_curl(double *);
