@@ -93,18 +93,25 @@ d. You can view the past recorded data through this link: http://www.cc.puv.fi/~
 
 e.To stop the program, press Ctrl+C
 
-4. Files included in this project: main.c wave.h wave.c screen.c screen.h comm.c comm.h makefile 
+4. Known bugs:<br/>
+The last values of the samples encountered some kind of errors, thus resulting in the last value <br />
+being shown may not be correct.
+
+Another problem is that somehow, the date and time taken from the program is 3 hours earlier then <br />
+the original time.
+
+5. Files included in this project: main.c wave.h wave.c screen.c screen.h comm.c comm.h makefile 
 README.md sound_1.php
 
 Additional files for visualization: sound.php recordLive.html recordedSound.php
 
-5. Copyright and licensing information: This is an open-source project so the user has the freedom
+6. Copyright and licensing information: This is an open-source project so the user has the freedom
 to use the work as he/she wish. No copyright and licensing.
 
-6. Contact information for the distributor or programmer: Name: Nguyen Hong Minh Quan 
+7. Contact information for the distributor or programmer: Name: Nguyen Hong Minh Quan 
 <br />Phone number: +358 959 3428 Email:nguyenquan261098@gmail.com
 
-7. Credits and acknowledgements: This project is made through the guidance of Doctor Gao Chao, 
+8. Credits and acknowledgements: This project is made through the guidance of Doctor Gao Chao, 
 supervisor of Application Development course, Vaasa University of Applied Sciences.
 
 
