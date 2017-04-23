@@ -1,4 +1,3 @@
-/* This program is just for testing */
 #include "wave.h"
 #include <stdio.h>
 #include <math.h>
@@ -9,7 +8,7 @@
 #include "comm.h"
 
 //this program will open a wave file, a display WAV header info
-//this program will create a wave file
+//this program will also create a wave file
 
 int main(int argc, char *argv[])
 {
@@ -35,9 +34,9 @@ int main(int argc, char *argv[])
 		clearScreen(); //a fresh screen to display
 		if (WIFSIGNALED(ret) && (WTERMSIG(ret)==SIGINT || WTERMSIG(ret)==SIGQUIT)) break;
 		fp = fopen("data.wav","r");
-		fread(&myhdr,sizeof(myhdr),1,fp);
+		fread(&myhdr,sizeof(myhdr),1,fp); //read wave header info and display it
 		displayWAVHDR(myhdr);
-		fread(&sa, sizeof(short int),SAMPLE_RATE,fp);
+		fread(&sa, sizeof(short int),SAMPLE_RATE,fp); //read wave data and display it in numbers or graphically.
 		displayWAVdata(sa);
 		fclose(fp);
 	}

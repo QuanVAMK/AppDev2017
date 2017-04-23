@@ -25,7 +25,7 @@ void send_data_curl(double Leq[])
                 res = curl_easy_perform(curl);
                 if (res!= CURLE_OK)
                         fprintf(stderr,"curl_easy_perform() failed: %s\n",curl_easy_strerror(res));
-                curl_easy_cleanup(curl);
+                curl_easy_cleanup(curl); //end the curl easy handle.
         }
         curl_global_cleanup();
 	printf("Test");

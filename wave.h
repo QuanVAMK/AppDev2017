@@ -19,6 +19,7 @@ typedef struct
 	int Subchunk2Size;
 }WAVHDR;
 
+//Constant definitions
 //#define DEBUG
 #define SAMPLE_RATE 16000
 #define PI 3.1415926

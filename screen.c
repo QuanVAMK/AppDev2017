@@ -4,7 +4,7 @@
 void setFGcolor(int fg)
 {
 	printf("\033[%d;1m",fg);
-	fflush(stdout);
+	fflush(stdout);  
 }
 
 void resetColor(void)
@@ -29,7 +29,7 @@ void displayBar(double rms, int col)
 {
 	int i;
 	rms = (rms)*3/sizeof(short int);
-	if (70-rms/100<0) {setFGcolor(RED);}
+	if (70-rms/100<0) {setFGcolor(RED);} //If the value exceeds the screen, will be shown in red
 	for (i=70;i>70-rms/100;i--)
 	{
 		if (i<2) break;
