@@ -22,17 +22,17 @@ void gotoXY(int row, int col) {
 	fflush(stdout);
 }
 
-void displayBar(int col, double rms) {
+void displayBar(double rms, int col){
 	int i;
-	gotoXY(2,1);
-	for (i=0;i<=80;i++)
-		printf("*");
-	for (i=80;i>=80-rms/50; i--) {
-		gotoXY(i, col);
-#ifdef UNICODE
-		printf("%s", BAR);
+	rms = (rms)*3/sizeof(short int);
+	if (70-rms/100<0) {setFGcolor(RED);} //If value exceeds the terminal screen, red color will be shown.
+	for (i=70;i>70-rms/100;i--){
+		if (i<2) break;
+		gotoXY(i+2,col);
+#ifndef UNICODE
+		printf("%c",);
 #else
-		printf("*");
+		printf("%s",BAR);
 #endif
 	}
 	fflush(stdout);
